@@ -1,0 +1,68 @@
+<html>
+<head>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <title>Music Recommendation Web</title>
+</head>
+
+<body>
+
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <td class="text-center" colspan="7"><h1>Tracks</h1></td>
+        </tr>
+        <tr>
+            <td colspan="7">
+                <div class="row text-right">
+                    <form action="/recommendations" class="p-1">
+                        <button type="submit" class="btn btn-primary">Recommendations</button>
+                    </form>
+                    <form action="/reset" class="p-1">
+                        <button type="submit" class="btn btn-primary">Reset</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        {% for col in column_names %}
+            <th>{{col}}</th>
+        {% endfor %}
+            <th>Action</th>
+        </tr>
+    </thead>
+	{% for col in row_data %}
+    <tr>
+    	{% for col_col in col %}
+    	<td>
+    		{{col_col}}
+    	</td>
+        {% endfor %}
+        <td style="width:300px;">
+        	<!-- <a href="/like/{{col[0]}}" class="button">Like</a> -->
+            <div class="row">
+                <!-- <div class="col"> -->
+                    <form method="POST" class="p-1" action="/dislike/{{col[0]}}/{{loop.index0}}">
+                        <button type="submit" class="btn btn-primary">Dislike</button>
+                    </form>
+                    <form method="POST" class="p-1" action="/unsure/{{col[0]}}/{{loop.index0}}">
+                        <button type="submit" class="btn btn-primary">Not Sure</button>
+                    </form>
+                    <form method="POST" class="p-1" action="/like/{{col[0]}}/{{loop.index0}}">
+                        <button type="submit" class="btn btn-primary">Like</button>
+                    </form>
+                <!-- </div> -->
+            </div>
+            
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+
+</html>
